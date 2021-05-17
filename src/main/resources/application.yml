@@ -1,0 +1,46 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: zuulserver
+
+zuul:
+  prefix: /api
+  addProxyHeaders: true
+  forceOriginalQueryStringEncoding: true
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+
+  routes:
+    authentication:
+      path: /v1/user/oauth/token
+      serviceId: SPRING-CLOUD-USER-API
+      stripPrefix: true
+
+    users:
+      path: /service-user/**
+  #    url: http://localhost:8080/v1/user
+      serviceId: SPRING-CLOUD-USER-API
+      stripPrefix: true
+
+    travels:
+      path: /service-travel/**
+      serviceId: SPRING-CLOUD-TRAVEL-API
+      stripPrefix: true
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: INFO
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
