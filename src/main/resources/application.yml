@@ -10,6 +10,15 @@ zuul:
   addProxyHeaders: true
   forceOriginalQueryStringEncoding: true
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+  connect-timeout-millis: 60000
+  host.max-per-route-connections: 10000
+  host.max-total-connections: 5000
+  host.socket-timeout-millis: 60000
+
+  semaphore:
+    max-semaphores: 500
+  ribbon:
+    eager-load.enabled: true
 
   routes:
     authentication:
@@ -28,6 +37,11 @@ zuul:
       serviceId: SPRING-CLOUD-TRAVEL-API
       stripPrefix: true
 
+    vouchers:
+      path: /service-voucher/**
+      serviceId: SPRING-CLOUD-VOUCHER-API
+      stripPrefix: true
+
 logging:
   level:
     ROOT: INFO
@@ -36,11 +50,25 @@ logging:
 eureka:
   instance:
     preferIpAddress: true
+    registerWithEureka: true
+    fetchRegistry: true
+    healthcheck:
+      enabled: true
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: THREAD
+        thread:
+          timeoutInMilliseconds: 40000
+
+
 ribbon:
-  ConnectTimeout: 3000
-  ReadTimeout: 60000
+  ConnectTimeout: 10000
+  ReadTimeout: 10000
