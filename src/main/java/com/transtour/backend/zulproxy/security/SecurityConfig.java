@@ -53,6 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         config.addAllowedHeader("Content-type");
         config.addAllowedHeader("Accept");
+        config.addAllowedHeader("Access-Control-Allow-Origin");
+        config.addAllowedHeader("Access-Control-Allow-Credentials");
+        config.addAllowedHeader("Access-Control-Max-Age");
+
 
         source.registerCorsConfiguration("/**", config);
         return source;

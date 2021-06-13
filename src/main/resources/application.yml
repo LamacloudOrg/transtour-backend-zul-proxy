@@ -1,14 +1,21 @@
 server:
-  port: ${PORT:8080}
+  port: ${PORT:443}
+  name: zull-server
+
+  ssl:
+    enabled: true
+    key-store: /opt/app/keystore.jks
+    key-store-password: transtour-api
 
 spring:
   application:
-    name: zuulserver
+    name: zuul-server
 
 zuul:
   prefix: /api
   addProxyHeaders: true
   forceOriginalQueryStringEncoding: true
+  ignoreSecurityHeaders: true
   ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
   connect-timeout-millis: 60000
   host.max-per-route-connections: 10000
@@ -48,7 +55,12 @@ logging:
     org.springframework.web: INFO
 
 eureka:
+  registerWithEureka: true
+  fetchRegistry: true
   instance:
+    nonSecurePortEnabled: false
+    securePortEnabled: true
+    securePort: 443
     preferIpAddress: true
     registerWithEureka: true
     fetchRegistry: true
@@ -56,8 +68,7 @@ eureka:
       enabled: true
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
+      defaultZone: ${EUREKA_URI:http://eureka-server:8761/eureka/}
 
 hystrix:
   command:
