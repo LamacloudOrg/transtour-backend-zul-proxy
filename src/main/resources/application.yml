@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:443}
+  port: ${PORT:8080}
   name: zull-server
 
   ssl:
@@ -44,6 +44,11 @@ zuul:
       serviceId: SPRING-CLOUD-TRAVEL-API
       stripPrefix: true
 
+    notifications:
+      path: /service-notification/**
+      serviceId: SPRING-CLOUD-NOTIFICATION
+      stripPrefix: true
+
     vouchers:
       path: /service-voucher/**
       serviceId: SPRING-CLOUD-VOUCHER-API
@@ -60,7 +65,7 @@ eureka:
   instance:
     nonSecurePortEnabled: false
     securePortEnabled: true
-    securePort: 443
+    securePort: 8080
     preferIpAddress: true
     registerWithEureka: true
     fetchRegistry: true
