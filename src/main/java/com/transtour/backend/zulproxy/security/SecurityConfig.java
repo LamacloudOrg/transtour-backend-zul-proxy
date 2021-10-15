@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         config.addAllowedMethod("PATCH");
 
         config.addAllowedHeader("Content-type");
+        config.addAllowedHeader("Content-Disposition");
         config.addAllowedHeader("Accept");
         config.addAllowedHeader("Access-Control-Allow-Origin");
         config.addAllowedHeader("Access-Control-Allow-Credentials");
