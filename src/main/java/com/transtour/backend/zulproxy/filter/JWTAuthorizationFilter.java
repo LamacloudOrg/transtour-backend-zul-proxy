@@ -1,6 +1,7 @@
 package com.transtour.backend.zulproxy.filter;
 
 import com.google.gson.Gson;
+import com.sun.org.apache.xerces.internal.impl.xs.util.ShortListImpl;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,13 +59,13 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     }
 
     private void setUpSpringAuhtentication(Claims claims) {
-        List<SimpleGrantedAuthority> autorities = (List<SimpleGrantedAuthority>) claims.get("authorities");
+        String autority = (String) claims.get("authorities");
 
         UsernamePasswordAuthenticationToken auth = new
                 UsernamePasswordAuthenticationToken(
                      claims.getSubject(),
                      null,
-                autorities);
+                Collections.singleton(new SimpleGrantedAuthority(autority)));
         SecurityContextHolder.getContext().setAuthentication(auth);
 
 
