@@ -56,16 +56,13 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     }
 
     private void setUpSpringAuhtentication(Claims claims) {
-        List<String> autorities = (List<String>) claims.get("authorities");
+        List<SimpleGrantedAuthority> autorities = (List<SimpleGrantedAuthority>) claims.get("authorities");
 
         UsernamePasswordAuthenticationToken auth = new
                 UsernamePasswordAuthenticationToken(
                      claims.getSubject(),
                      null,
-                     autorities.stream().map( authority
-                             -> new SimpleGrantedAuthority(authority))
-                             .collect(Collectors.toList()));
-
+                autorities);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
 
