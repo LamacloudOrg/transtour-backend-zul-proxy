@@ -13,7 +13,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .addFilter(new JWTAuthorizationFilter())
                 .authorizeRequests()
-                .antMatchers("/v1/user/oauth/token").permitAll()
+                .antMatchers("/api/service-user/v1/user/oauth/token").permitAll()
                 .anyRequest().authenticated();
     }
 }
