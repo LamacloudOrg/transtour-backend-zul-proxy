@@ -16,7 +16,7 @@ zuul:
   addProxyHeaders: true
   forceOriginalQueryStringEncoding: true
   ignoreSecurityHeaders: true
-  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+  #ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin, Authorization
   connect-timeout-millis: 60000
   host.max-per-route-connections: 10000
   host.max-total-connections: 5000
