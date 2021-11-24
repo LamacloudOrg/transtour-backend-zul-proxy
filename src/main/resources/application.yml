@@ -49,6 +49,11 @@ zuul:
       serviceId: SPRING-CLOUD-VOUCHER-API
       stripPrefix: true
 
+    notifications:
+      path: /service-notification/**
+      serviceId: SPRING-CLOUD-NOTIFICATION
+      stripPrefix: true
+
 logging:
   level:
     ROOT: INFO
