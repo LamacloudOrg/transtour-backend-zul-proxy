@@ -29,7 +29,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-                http.cors(withDefaults())
+                http.cors().and()
                 .csrf().disable()
                 .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
@@ -43,20 +43,10 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("*");
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin"
-                ,"Access-Control-Allow-Credentials"
-                ,"Access-Control-Allow-Methods"
-                ,"Access-Control-Max-Age"
-                ,"Access-Control-Allow-Headers"
-                , "Content-Type"
-                , "Accept",
-                "X-Requested-With",
-                "remember-me"));
-        configuration.setMaxAge(3600l);
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
-
+        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers","Access-Control-Allow-Origin","Access-Control-Request-Method", "Access-Control-Request-Headers","Origin","Cache-Control", "Content-Type", "Authorization"));
+        configuration.setAllowedMethods(Arrays.asList("DELETE", "GET", "POST", "PATCH", "PUT"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
