@@ -7,10 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.UUID;
+
 
 @Component
 public class PreFilter extends ZuulFilter {
@@ -37,7 +35,7 @@ public class PreFilter extends ZuulFilter {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest httpServletRequest = context.getRequest();
 
-        context.addZuulRequestHeader("Access-Control-Allow-Origin", "http://zuul-host:8080/");
+        //context.addZuulRequestHeader("Access-Control-Allow-Origin", "http://zuul-host:8080/");
 
         log.info("request "+httpServletRequest.getRequestURI());
 
