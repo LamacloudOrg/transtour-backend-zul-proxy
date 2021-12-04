@@ -22,7 +22,7 @@ public class ZulProxyApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("https://209.126.85.7:8080").allowedMethods("*").allowedHeaders("*");
+				registry.addMapping("/**").allowedOrigins("https://209.126.85.7").allowedMethods("*").allowedHeaders("*");
 			}
 		};
 	}
