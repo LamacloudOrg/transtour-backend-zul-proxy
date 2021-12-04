@@ -35,7 +35,7 @@ public class PreFilter extends ZuulFilter {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest httpServletRequest = context.getRequest();
 
-        context.addZuulRequestHeader("Access-Control-Allow-Origin", "http://zuul-host:8080/");
+        //context.addZuulRequestHeader("Access-Control-Allow-Origin", "http://zuul-host:8080/");
 
         log.info("request "+httpServletRequest.getRequestURI());
 
