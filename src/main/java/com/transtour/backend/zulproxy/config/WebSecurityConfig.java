@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
@@ -33,6 +35,29 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
 
+    }
+
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/","http://transtour.com.ar/","https://transtour.com.ar/"));// if your front end running on localhost:5000
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin"
+                ,"Access-Control-Allow-Credentials"
+                ,"Access-Control-Allow-Methods"
+                ,"Access-Control-Max-Age"
+                ,"Access-Control-Allow-Headers"
+                , "Content-Type"
+                , "Accept",
+                "X-Requested-With",
+                "remember-me"));
+        configuration.setMaxAge(3600l);
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     // Used by spring security if CORS is enabled.
