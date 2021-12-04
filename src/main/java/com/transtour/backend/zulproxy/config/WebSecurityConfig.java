@@ -43,7 +43,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/","http://transtour.com.ar/","https://transtour.com.ar/"));// if your front end running on localhost:5000
+        configuration.addAllowedOrigin("*");
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin"
                 ,"Access-Control-Allow-Credentials"
