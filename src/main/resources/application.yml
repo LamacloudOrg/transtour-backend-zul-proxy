@@ -4,7 +4,10 @@ server:
 
   ssl:
     enabled: true
+    key-alias: transtour-api
+    key-store-type: jks
     key-store: /opt/app/keystore.jks
+    key-password: transtour-api
     key-store-password: transtour-api
 
 spring:
@@ -21,6 +24,13 @@ zuul:
   host.max-per-route-connections: 10000
   host.max-total-connections: 5000
   host.socket-timeout-millis: 60000
+  sslHostnameValidationEnabled: false
+  okhttp:
+    enabled: true
+  host:
+    connect-timeout-millis: 5000000
+    socket-timeout-millis: 5000000
+  ignoredServices: '*'
 
   semaphore:
     max-semaphores: 500
@@ -28,14 +38,9 @@ zuul:
     eager-load.enabled: true
 
   routes:
-    #authentication:
-    #  path: /v1/user/oauth/token
-    #  serviceId: SPRING-CLOUD-USER-API
-    #  stripPrefix: true
 
     users:
       path: /service-user/**
-  #    url: http://localhost:8080/v1/user
       serviceId: SPRING-CLOUD-USER-API
       stripPrefix: true
 
@@ -86,8 +91,26 @@ hystrix:
 
 
 ribbon:
-  ConnectTimeout: 10000
-  ReadTimeout: 10000
+  OkToRetryOnAllOperations: true
+  ReadTimeout: 5000000
+  ConnectTimeout: 5000000
+  MaxAutoRetries: 3
+  MaxAutoRetriesNextServer: 3
+  CustomSSLSocketFactoryClassName: com.netflix.http4.ssl.AcceptAllSocketFactory
+  IsHostnameValidationRequired: false
+  TrustStore: /opt/app/keystore.jks
+  TrustStorePassword : transtour-api
+
+
+  logging:
+    file: /opt/app/zuul.log
+    pattern:
+      console: "%d %-5level %logger : %msg%n"
+      file: "%d %-5level [%thread] %logger : %msg%n"
+    level:
+      com.aurora.core: DEBUG
+      org.hibernate: ERROR
+
 
 secret:
   key: key
