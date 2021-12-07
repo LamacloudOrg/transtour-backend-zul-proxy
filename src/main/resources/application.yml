@@ -4,7 +4,7 @@ server:
 
   ssl:
     enabled: true
-    key-alias: transtour-api
+    #key-alias: transtour-api
     key-store-type: jks
     key-store: /opt/app/keystore.jks
     key-password: transtour-api
