@@ -1,5 +1,5 @@
 server:
-  port: ${PORT:443}
+  port: ${PORT:8080}
   name: zull-server
 
   ssl:
@@ -70,7 +70,7 @@ eureka:
   instance:
     nonSecurePortEnabled: false
     securePortEnabled: true
-    securePort: 443
+    securePort: 8080
     preferIpAddress: true
     registerWithEureka: true
     fetchRegistry: true
