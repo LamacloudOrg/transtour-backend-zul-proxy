@@ -52,7 +52,7 @@ zuul:
 
     notifications:
       path: /service-notification/**
-      serviceId: SPRING-CLOUD-NOTIFICATION
+      serviceId: SPRING-CLOUD-NOTIFICATION-API
       stripPrefix: true
 
     vouchers:
